@@ -15,27 +15,32 @@
             </v-card>
         </v-dialog>
 
+        <v-dialog v-model="unsupportedNetwork" width="500" persistent>
+            <v-card>
+                <v-card-title class="text-h5 error lighten-2"> Error </v-card-title>
+
+                <v-card-text>
+                    You are using unsupported network ({{ cahinName }}).<br />
+                    Please connect your wallet to Rinkeby and refresh the page.
+                </v-card-text>
+            </v-card>
+        </v-dialog>
+
         <v-col cols="12" sm="8" md="6">
             <v-card>
                 <v-card-title class="headline" style="justify-content: center">
                     <AppLogo :badge="!isRegistered" />
                 </v-card-title>
-                <v-card-text
-                    class="calc-wallet-section-container"
-                >
+                <v-card-text class="calc-wallet-section-container">
                     <div id="row">
                         <b>Wallet:</b>
                         <div v-if="accounts != null" class="short-wallet-address">
-                          <v-tooltip top>
-                            <template v-slot:activator="{ on, attrs }">
-                              <span
-                                
-                                v-bind="attrs"
-                                v-on="on"
-                              >{{ accounts[0] }}</span>
-                            </template>
-                            <span>{{ cahinName }}: {{ accounts[0] }}</span>
-                          </v-tooltip>                          
+                            <v-tooltip top>
+                                <template v-slot:activator="{ on, attrs }">
+                                    <span v-bind="attrs" v-on="on">{{ accounts[0] }}</span>
+                                </template>
+                                <span>{{ cahinName }}: {{ accounts[0] }}</span>
+                            </v-tooltip>
                         </div>
                         <v-btn
                             v-if="accounts == null"
@@ -55,13 +60,8 @@
                         <v-btn style="margin-left: 10px" x-small color="green" @click="refund">Request Refund</v-btn>
                     </div>
                 </v-card-text>
-                <v-card-text
-                    class="calc-main-section"
-                >
-                    <div
-                        class="calc-display"
-
-                    >
+                <v-card-text class="calc-main-section">
+                    <div class="calc-display">
                         <div id="numbers" class="calc-display-text">
                             {{ displayText }}
                         </div>
@@ -99,7 +99,8 @@ export default {
             contract: null,
             provider: null,
             signer: null,
-            cahinName: "not connected",
+            cahinName: 'not connected',
+            unsupportedNetwork: false,
 
             displayText: '',
             displayError: '',
@@ -140,6 +141,10 @@ export default {
             this.contract = new ethers.Contract(this.contractAddress, this.contractABI, this.signer);
             const { name } = await this.provider.getNetwork();
             this.cahinName = name;
+
+            if (this.cahinName.toLowerCase() != 'rinkeby') {
+                this.unsupportedNetwork = true;
+            }
 
             await this.checkIfUserRegistered();
         },
@@ -182,7 +187,7 @@ export default {
         },
 
         isValidEQ(eq) {
-            if (eq == "") {
+            if (eq == '') {
                 this.displayError = 'Expression is empty';
                 return false;
             }
@@ -212,10 +217,10 @@ export default {
         async buttonPress(value) {
             this.displayError = '';
             if (value == '=') {
-                if (this.displayText == "undefined" || this.displayText == undefined || this.displayText == null) {
-                    this.displayText = "";
+                if (this.displayText == 'undefined' || this.displayText == undefined || this.displayText == null) {
+                    this.displayText = '';
                 }
-                
+
                 var eq = this.displayText.replaceAll('x', '*').replaceAll('÷', '/');
 
                 if (this.isValidEQ(eq)) {

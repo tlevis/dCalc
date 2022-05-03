@@ -280,7 +280,7 @@ export default {
                         case '*':
                             return (await this.contract.mul(leftVal, rightVal)).toNumber();
                         case '/':
-                            return (await this.contract.div(leftVal, rightVal)).toNumber();
+                            return parseFloat(await this.contract.div(leftVal, rightVal));
                     }
                 } catch (err) {
                     this.displayError = err.reason;

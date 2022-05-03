@@ -46,9 +46,13 @@ contract Calculator {
         return _x * _y;
     }
 
-    function div(int256 _x, int256 _y) public isRegistered view returns (int256) {
+    function div(uint256 _x, uint256 _y) public isRegistered view returns (string memory result) {
         require(_y != 0, "You cannot divied by 0");
-        return _x / _y;
+        // Since we cannot use decimals, let's make a 10^2 factor to add 2 decimal points and return it as a string
+        uint256 factor = 100; 
+        uint256 quotient  = _x / _y;
+        uint256 remainder = (_x * factor / _y) % factor;
+        result = string(abi.encodePacked(Strings.toString(quotient), '.', Strings.toString(remainder)));
     }
 
     function healthCheck() public pure returns (int8) {

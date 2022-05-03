@@ -1,10 +1,37 @@
 export const state = () => ({
-    contractAddress: '0xb837Bd1a20258ada5B1594a7bb4Ff6fBedFf76cA',
+    contractAddress: '0xe5b9560aB1A6AbdF13A5641619e284cE24305780', // Move to .env
     contractABI: [
+        {
+            "inputs": [],
+            "name": "refund",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "register",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "payable",
+            "type": "function"
+        },
         {
             "inputs": [],
             "stateMutability": "nonpayable",
             "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "withdraw",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
         },
         {
             "inputs": [
@@ -46,22 +73,22 @@ export const state = () => ({
         {
             "inputs": [
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "_x",
-                    "type": "int256"
+                    "type": "uint256"
                 },
                 {
-                    "internalType": "int256",
+                    "internalType": "uint256",
                     "name": "_y",
-                    "type": "int256"
+                    "type": "uint256"
                 }
             ],
             "name": "div",
             "outputs": [
                 {
-                    "internalType": "int256",
-                    "name": "",
-                    "type": "int256"
+                    "internalType": "string",
+                    "name": "result",
+                    "type": "string"
                 }
             ],
             "stateMutability": "view",
@@ -102,26 +129,6 @@ export const state = () => ({
                 }
             ],
             "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "inputs": [],
-            "name": "refund",
-            "outputs": [],
-            "stateMutability": "payable",
-            "type": "function"
-        },
-        {
-            "inputs": [],
-            "name": "register",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "stateMutability": "payable",
             "type": "function"
         },
         {
@@ -171,15 +178,8 @@ export const state = () => ({
             ],
             "stateMutability": "view",
             "type": "function"
-        },
-        {
-            "inputs": [],
-            "name": "withdraw",
-            "outputs": [],
-            "stateMutability": "payable",
-            "type": "function"
         }
-    ],
+    ], // Move to .env
     buttons: ['7', '8', '9', '÷', '4', '5', '6', 'x', '1', '2', '3', '+', 'C', '0', '⌫', '-', '='],
 });
 

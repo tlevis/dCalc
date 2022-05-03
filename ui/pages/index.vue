@@ -224,8 +224,10 @@ export default {
                 var eq = this.displayText.replaceAll('x', '*').replaceAll('÷', '/');
 
                 if (this.isValidEQ(eq)) {
+                    this.processing = true;
                     var r = await this.solve(eq);
                     this.displayText = r;
+                    this.processing = false;
                 }
             } else if (value == 'C') {
                 this.displayText = '';
@@ -270,7 +272,6 @@ export default {
                 var leftVal = await this.solve(str.substring(0, expressionIndex).trim());
                 var rightVal = await this.solve(str.substring(expressionIndex + 1).trim());
                 try {
-                    this.processing = true;
                     switch (str[expressionIndex]) {
                         case '+':
                             return (await this.contract.add(leftVal, rightVal)).toNumber();
@@ -284,7 +285,6 @@ export default {
                 } catch (err) {
                     this.displayError = err.reason;
                 }
-                this.processing = false;
             }
         },
     },

@@ -182,6 +182,11 @@ export default {
         },
 
         isValidEQ(eq) {
+            if (eq == "") {
+                this.displayError = 'Expression is empty';
+                return false;
+            }
+
             var parts = eq.match(/[^\d()]+|[\d.]+/g);
             if (parts == null) {
                 this.displayError = 'Expression is empty';
@@ -207,7 +212,10 @@ export default {
         async buttonPress(value) {
             this.displayError = '';
             if (value == '=') {
-                console.log(this.displayText);
+                if (this.displayText == "undefined" || this.displayText == undefined || this.displayText == null) {
+                    this.displayText = "";
+                }
+                
                 var eq = this.displayText.replaceAll('x', '*').replaceAll('÷', '/');
 
                 if (this.isValidEQ(eq)) {

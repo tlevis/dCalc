@@ -1,8 +1,8 @@
 <template>
     <div style="position: relative">
-        <img class="app-logo" alt="app-logo" src="/logo.png" />
+        <img class="app-logo" alt="app-logo" src="~/assets/logo.png" />
         <div v-if="badge" style="position: absolute; bottom: 0px; right: 0px">
-            <img style="width: 100px; height: 100px; object-fit: contain" src="/money-back.png" />
+            <img style="width: 100px; height: 100px; object-fit: contain" src="~/assets/money-back.png" />
         </div>
     </div>
 </template>

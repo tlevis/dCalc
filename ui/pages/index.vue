@@ -135,7 +135,9 @@ export default {
     },
     methods: {
         async connect() {
-            this.provider = new ethers.providers.Web3Provider(window.ethereum);
+            var self = this;
+
+            this.provider = new ethers.providers.Web3Provider(window.ethereum, "any");
             this.accounts = await this.provider.send('eth_requestAccounts', []);
             this.signer = this.provider.getSigner();
             this.contract = new ethers.Contract(this.contractAddress, this.contractABI, this.signer);
@@ -145,6 +147,20 @@ export default {
             if (this.cahinName.toLowerCase() != 'rinkeby') {
                 this.unsupportedNetwork = true;
             }
+
+
+            this.provider.on('accountsChanged', async function (accounts) {
+                self.accounts = accounts;
+                await self.checkIfUserRegistered();
+            });
+
+            this.provider.on("network", (newNetwork, oldNetwork) => {
+                if (oldNetwork) {
+                    window.location.reload();
+                }
+            });
+
+
 
             await this.checkIfUserRegistered();
         },
